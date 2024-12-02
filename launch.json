@@ -1,0 +1,169 @@
+{
+    // 使用 IntelliSense 了解相关属性。 
+    // 悬停以查看现有属性的描述。
+    // 欲了解更多信息，请访问: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Attach to Process",
+            "type": "cppdbg",
+            "request": "attach",
+            "program": "/home/rin/project/starrocks/output/be/lib/starrocks_be",
+            "processId": "${command:pickProcess}",   // 选择进程
+            "MIMode": "gdb",
+            "miDebuggerPath": "/usr/bin/gdb",
+            "setupCommands": [
+                {
+                    "description": "Enable pretty-printing for gdb",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": true
+                },
+                {
+                    "description": "Ignore SIGTRAP signals",        // 忽略 SIGTRAP 信号
+                    "text": "handle SIGTRAP nostop noprint pass",
+                    "ignoreFailures": true
+                }
+            ]
+        },
+
+        {
+            "name": "(gdb) 启动",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "输入程序名称，例如 ${workspaceFolder}/a.out",
+            "args": [],
+            "stopAtEntry": false,
+            "cwd": "${fileDirname}",
+            "environment": [],
+            "externalConsole": false,
+            "MIMode": "gdb",
+            "setupCommands": [
+                {
+                    "description": "为 gdb 启用整齐打印",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": true
+                },
+                {
+                    "description": "将反汇编风格设置为 Intel",
+                    "text": "-gdb-set disassembly-flavor intel",
+                    "ignoreFailures": true
+                }
+            ]
+        },
+        {
+            "name": "(gdb) 管道启动",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "输入程序名称，例如 ${workspaceFolder}/a.out",
+            "args": [],
+            "stopAtEntry": false,
+            "cwd": "${fileDirname}",
+            "environment": [],
+            "externalConsole": false,
+            "pipeTransport": {
+                "debuggerPath": "/usr/bin/gdb",
+                "pipeProgram": "/usr/bin/ssh",
+                "pipeArgs": [],
+                "pipeCwd": ""
+            },
+            "MIMode": "gdb",
+            "setupCommands": [
+                {
+                    "description": "为 gdb 启用整齐打印",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": true
+                },
+                {
+                    "description": "将反汇编风格设置为 Intel",
+                    "text": "-gdb-set disassembly-flavor intel",
+                    "ignoreFailures": true
+                }
+            ]
+        },
+        {
+            "name": "(gdb) 调试 StarRocks BE",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "/bin/bash",  // 使用 Bash 执行脚本
+            "args": [
+                "${workspaceFolder}/output/be/bin/start_be.sh",  // 启动脚本路径
+               // "--gdb"
+            ],
+            "stopAtEntry": false,
+            "cwd": "${workspaceFolder}/output/be",
+            "environment": [
+                {
+                    "name": "STARROCKS_HOME",
+                    "value": "${workspaceFolder}/output/be"
+                },
+                {
+                    "name": "JAVA_HOME",
+                    "value": "/usr/lib/jvm/java-11-openjdk-arm64"
+                },
+                {
+                    "name": "LD_LIBRARY_PATH",
+                    "value": "/usr/lib/jvm/java-11-openjdk-arm64/lib/server:/usr/lib/jvm/java-11-openjdk-arm64/lib:${workspaceFolder}/output/be/lib:${workspaceFolder}/output/be/lib/hadoop/native"
+                }
+            ],
+            "externalConsole": false,
+            "MIMode": "gdb",
+            "miDebuggerPath": "/usr/bin/gdb",
+            "setupCommands": [
+                {
+                    "description": "启用整齐打印",
+                    "text": "enable pretty-printing",
+                    "ignoreFailures": true
+                },
+                {
+                    "description": "将反汇编风格设置为 Intel",
+                    "text": "set disassembly-flavor intel",
+                    "ignoreFailures": true
+                },
+                {
+                    "description": "Disable auto-breakpoint at main",
+                    "text": "delete 1",
+                    "ignoreFailures": true
+                }                
+            ]
+        },
+        
+    {
+        "name": "(gdb) 附加",
+        "type": "cppdbg",
+        "request": "attach",
+        "program": "/home/rin/project/starrocks/output/be/lib/starrocks_be",
+        //"useExtendedRemote": true,
+        "miDebuggerPath": "/usr/bin/gdb",
+        //"miDebuggerServerAddress": "orb:1234",
+        "MIMode": "gdb",
+        "setupCommands": [
+            {
+                "description": "sysroot",
+                "text": "set sysroot /Users/tohsaka/OrbStack/ubuntu"
+            },
+            {
+                "description": "Set debug file directory",
+                "text": "set debug-file-directory /Users/tohsaka/OrbStack/ubuntu/home/rin/project/starrocks/output/be/lib"
+            },
+            {
+                "description": "Set glibc source directory",
+                "text": "dir /usr/src/glibc"
+            },
+            {
+                "description": "为 gdb 启用整齐打印",
+                "text": "-enable-pretty-printing",
+                "ignoreFailures": true
+            },
+            {
+                "description": "将反汇编风格设置为 Intel",
+                "text": "-gdb-set disassembly-flavor intel",
+                "ignoreFailures": true
+            }
+        ],
+        "sourceFileMap": {
+            "be/build_Debug/be/src": "/home/rin/project/starrocks/be/src"
+            },
+        "additionalSOLibSearchPath": "/Users/tohsaka/OrbStack/ubuntu/lib:/Users/tohsaka/OrbStack/ubuntu/usr/lib"
+    }
+    ]
+}
